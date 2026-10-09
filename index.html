@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Volt — Real-Time Messaging Platform</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/public/css/style.css">
+</head>
+<body>
+  <div class="app-container">
+    
+    <!-- ==================== Join Screen ==================== -->
+    <div id="join-screen" class="screen active">
+      <div class="join-card">
+        <div class="app-logo">
+          <span class="logo-icon">⚡</span>
+          <h2>Volt</h2>
+          <p>High-performance real-time messaging with channels & private DMs</p>
+        </div>
+        <form id="join-form">
+          <div class="input-group">
+            <label for="username-input">Enter your username</label>
+            <input 
+              type="text" id="username-input" 
+              placeholder="e.g. Alex, Maya, Jordan..." 
+              autocomplete="off" maxlength="25" required autofocus
+            />
+          </div>
+          <button type="submit" class="btn btn-primary">Join Chat &rarr;</button>
+        </form>
+      </div>
+    </div>
+
+    <!-- ==================== Chat Screen ==================== -->
+    <div id="chat-screen" class="screen">
+      <div class="chat-layout">
+        
+        <!-- Sidebar -->
+        <aside class="chat-sidebar" id="chat-sidebar">
+          
+          <!-- Channels Section -->
+          <div class="sidebar-section">
+            <div class="section-header">
+              <h4>Channels</h4>
+              <button id="create-room-btn" class="icon-btn small" title="Create Room">+</button>
+            </div>
+            <ul id="room-list" class="nav-list">
+              <!-- Dynamically populated -->
+            </ul>
+          </div>
+
+          <!-- Direct Messages Section -->
+          <div class="sidebar-section dm-section">
+            <div class="section-header">
+              <h4>Direct Messages</h4>
+            </div>
+            <ul id="dm-user-list" class="nav-list">
+              <!-- Dynamically populated -->
+            </ul>
+          </div>
+
+          <!-- User Profile Footer -->
+          <div class="user-profile">
+            <div class="avatar my-avatar" id="my-avatar">U</div>
+            <div class="user-info">
+              <span class="user-name" id="my-username-display">You</span>
+              <span class="user-status">Online</span>
+            </div>
+          </div>
+        </aside>
+
+        <!-- Main Chat Area -->
+        <main class="chat-main">
+          <!-- Chat Header -->
+          <header class="chat-header">
+            <div class="room-details">
+              <h2 id="chat-title"># general</h2>
+              <p id="room-subtitle">
+                <span id="user-count-badge" class="count-badge">0</span>
+                <span>users online</span>
+              </p>
+            </div>
+            <button id="toggle-sidebar-btn" class="icon-btn mobile-only" title="Toggle Sidebar">☰</button>
+          </header>
+
+          <!-- Messages -->
+          <div id="messages-container" class="messages-container">
+            <div class="welcome-banner">
+              <span class="welcome-icon">💬</span>
+              <p>Welcome! Messages sent here appear for everyone in this room.</p>
+            </div>
+          </div>
+
+          <!-- Typing Indicator -->
+          <div id="typing-indicator" class="typing-indicator hidden">
+            <div class="typing-dots"><span></span><span></span><span></span></div>
+            <span id="typing-text">Someone is typing...</span>
+          </div>
+
+          <!-- Message Input -->
+          <form id="message-form" class="message-form">
+            <input type="text" id="message-input" placeholder="Type a message..." autocomplete="off" maxlength="1000" />
+            <button type="submit" class="btn btn-send" id="send-btn">
+              <span>Send</span>
+              <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <line x1="22" y1="2" x2="11" y2="13"></line>
+                <polygon points="22 2 15 22 11 13 2 9 22 2"></polygon>
+              </svg>
+            </button>
+          </form>
+        </main>
+      </div>
+    </div>
+
+    <!-- Create Room Modal -->
+    <div id="create-room-modal" class="modal-overlay hidden">
+      <div class="modal">
+        <h3>Create a Channel</h3>
+        <form id="create-room-form">
+          <div class="input-group">
+            <label for="room-name-input">Channel name</label>
+            <input type="text" id="room-name-input" placeholder="e.g. project, gaming, music..." autocomplete="off" maxlength="20" required />
+            <small>Lowercase, alphanumeric and hyphens only</small>
+          </div>
+          <div class="modal-actions">
+            <button type="button" id="cancel-create-room" class="btn btn-ghost">Cancel</button>
+            <button type="submit" class="btn btn-primary">Create</button>
+          </div>
+        </form>
+      </div>
+    </div>
+
+  </div>
+
+  <script src="/socket.io/socket.io.js"></script>
+  <script src="/public/js/index.js"></script>
+</body>
+</html>
